@@ -1,37 +1,37 @@
 import UIKit
 
 private struct QuizQuestion {
-  let image: String
-  let text: String
-  let correctAnswer: Bool
+    let image: String
+    let text: String
+    let correctAnswer: Bool
 }
 
 private struct QuizStepViewModel {
-  let image: UIImage
-  let question: String
-  let questionNumber: String
+    let image: UIImage
+    let question: String
+    let questionNumber: String
 }
 
 private struct QuizResultsViewModel {
-  let title: String
-  let text: String
-  let buttonText: String
+    let title: String
+    let text: String
+    let buttonText: String
 }
 
 final class MovieQuizViewController: UIViewController {
     
     private let questions: [QuizQuestion] = [
-            QuizQuestion(image: "The Godfather", text: "Рейтинг этого фильма больше чем 6?", correctAnswer: true),
-            QuizQuestion(image: "The Dark Knight", text: "Рейтинг этого фильма больше чем 6?", correctAnswer: true),
-            QuizQuestion(image: "Kill Bill", text: "Рейтинг этого фильма больше чем 6?", correctAnswer: true),
-            QuizQuestion(image: "The Avengers", text: "Рейтинг этого фильма больше чем 6?", correctAnswer: true),
-            QuizQuestion(image: "Deadpool", text: "Рейтинг этого фильма больше чем 6?", correctAnswer: true),
-            QuizQuestion(image: "The Green Knight", text: "Рейтинг этого фильма больше чем 6?", correctAnswer: true),
-            QuizQuestion(image: "Old", text: "Рейтинг этого фильма больше чем 6?", correctAnswer: false),
-            QuizQuestion(image: "The Ice Age Adventures of Buck Wild", text: "Рейтинг этого фильма больше чем 6?", correctAnswer: false),
-            QuizQuestion(image: "Tesla", text: "Рейтинг этого фильма больше чем 6?", correctAnswer: false),
-            QuizQuestion(image: "Vivarium", text: "Рейтинг этого фильма больше чем 6?", correctAnswer: false)
-        ]
+        QuizQuestion(image: "The Godfather", text: "Рейтинг этого фильма больше чем 6?", correctAnswer: true),
+        QuizQuestion(image: "The Dark Knight", text: "Рейтинг этого фильма больше чем 6?", correctAnswer: true),
+        QuizQuestion(image: "Kill Bill", text: "Рейтинг этого фильма больше чем 6?", correctAnswer: true),
+        QuizQuestion(image: "The Avengers", text: "Рейтинг этого фильма больше чем 6?", correctAnswer: true),
+        QuizQuestion(image: "Deadpool", text: "Рейтинг этого фильма больше чем 6?", correctAnswer: true),
+        QuizQuestion(image: "The Green Knight", text: "Рейтинг этого фильма больше чем 6?", correctAnswer: true),
+        QuizQuestion(image: "Old", text: "Рейтинг этого фильма больше чем 6?", correctAnswer: false),
+        QuizQuestion(image: "The Ice Age Adventures of Buck Wild", text: "Рейтинг этого фильма больше чем 6?", correctAnswer: false),
+        QuizQuestion(image: "Tesla", text: "Рейтинг этого фильма больше чем 6?", correctAnswer: false),
+        QuizQuestion(image: "Vivarium", text: "Рейтинг этого фильма больше чем 6?", correctAnswer: false)
+    ]
     
     private var currentQuestionIndex = 0
     private var correctAnswers = 0
@@ -39,7 +39,8 @@ final class MovieQuizViewController: UIViewController {
     @IBOutlet private weak var imageView: UIImageView!
     @IBOutlet private weak var textLabel: UILabel!
     @IBOutlet private weak var counterLabel: UILabel!
-    
+    @IBOutlet private weak var noButton: UIButton!
+    @IBOutlet private weak var yesButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,10 +60,17 @@ final class MovieQuizViewController: UIViewController {
         counterLabel.text = step.questionNumber
     }
     
+    private func stateButtons(isEnabled: Bool) {
+        noButton.isEnabled = isEnabled
+        yesButton.isEnabled = isEnabled
+    }
+    
     private func showAnswerResult(isCorrect: Bool) {
         if isCorrect {
             correctAnswers += 1
         }
+        
+        stateButtons(isEnabled: false)
         
         imageView.layer.masksToBounds = true
         imageView.layer.borderWidth = 8
@@ -71,7 +79,8 @@ final class MovieQuizViewController: UIViewController {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
             self.showNextQuestionOrResults()
             self.imageView.layer.borderColor = UIColor.clear.cgColor
-           }
+            self.stateButtons(isEnabled: true)
+        }
     }
     
     private func showNextQuestionOrResults() {
@@ -81,7 +90,6 @@ final class MovieQuizViewController: UIViewController {
                                             buttonText: "Сыграть ещё раз"))
         } else {
             currentQuestionIndex += 1
-            
             let nextQuestion = questions[currentQuestionIndex]
             show(quiz: convert(model: nextQuestion))
         }
