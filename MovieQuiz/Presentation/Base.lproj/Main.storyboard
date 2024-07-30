@@ -110,10 +110,15 @@
                                     </stackView>
                                 </subviews>
                             </stackView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="tTb-vR-8Lx">
+                                <rect key="frame" x="177.66666666666666" y="396" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" name="YP Black"/>
                         <constraints>
+                            <constraint firstItem="tTb-vR-8Lx" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="WSh-NH-NxE"/>
+                            <constraint firstItem="tTb-vR-8Lx" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="Wme-Te-yTJ"/>
                             <constraint firstItem="ryW-0J-IBw" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="cm1-XJ-qA1"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="ryW-0J-IBw" secondAttribute="bottom" id="fZb-YF-g6S"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="ryW-0J-IBw" secondAttribute="trailing" constant="20" id="gaI-rt-hZ2"/>
@@ -121,6 +126,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="activityIndicator" destination="tTb-vR-8Lx" id="TAt-9N-ffJ"/>
                         <outlet property="counterLabel" destination="hPy-Pb-pWn" id="cWh-0q-r81"/>
                         <outlet property="imageView" destination="goU-yF-lFI" id="4Ch-Lm-qVG"/>
                         <outlet property="noButton" destination="Y5n-kZ-qT0" id="Afe-Rt-ePT"/>
