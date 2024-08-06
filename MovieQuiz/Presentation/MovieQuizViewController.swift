@@ -23,6 +23,8 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         
         questionFactory = QuestionFactory(moviesLoader: MoviesLoader(), delegate: self)
         
+        activityIndicator.hidesWhenStopped = true
+        
         showLoadingIndicator()
         questionFactory?.loadData()
         
@@ -127,12 +129,11 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     }
     
     private func showLoadingIndicator() {
-        activityIndicator.isHidden = false
         activityIndicator.startAnimating()
     }
     
     private func hideLoadingIndicator() {
-        activityIndicator.isHidden = true
+        activityIndicator.stopAnimating()
     }
     
     private func showNetworkError(message: String) {
